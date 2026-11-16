@@ -1,0 +1,422 @@
+{
+"updated": "2026-11-16",
+"exams": [
+{
+"id": "s1",
+"d": "2026-09-30",
+"s": "FIS",
+"t": "Examen 1º",
+"k": "ex"
+},
+{
+"id": "s2",
+"d": "2026-10-06",
+"s": "MAT",
+"t": "Examen Análisis 1",
+"k": "ex"
+},
+{
+"id": "s3",
+"d": "2026-10-12",
+"s": "",
+"t": "Festivo",
+"k": "fest"
+},
+{
+"id": "s4",
+"d": "2026-10-21",
+"s": "HF",
+"t": "Comentario Aristóteles (30%)",
+"k": "ex"
+},
+{
+"id": "s5",
+"d": "2026-10-22",
+"s": "CAST",
+"t": "Comunicación + Morfología",
+"k": "ex"
+},
+{
+"id": "s6",
+"d": "2026-10-27",
+"s": "FIS",
+"t": "Examen",
+"k": "ex"
+},
+{
+"id": "s7",
+"d": "2026-10-28",
+"s": "HF",
+"t": "Examen B1/B2 Platón/Aristóteles",
+"k": "ex"
+},
+{
+"id": "s8",
+"d": "2026-11-03",
+"s": "MAT",
+"t": "Examen Análisis II",
+"k": "ex"
+},
+{
+"id": "s9",
+"d": "2026-11-04",
+"s": "FIS",
+"t": "Examen",
+"k": "ex"
+},
+{
+"id": "s10",
+"d": "2026-11-11",
+"s": "HF",
+"t": "Examen B3 Platón/Aristóteles",
+"k": "ex"
+},
+{
+"id": "s11",
+"d": "2026-11-16",
+"s": "ANG",
+"t": "Examen",
+"k": "ex"
+},
+{
+"id": "s12",
+"d": "2026-11-17",
+"s": "CAST",
+"t": "Literatura",
+"k": "ex"
+},
+{
+"id": "s13",
+"d": "2026-11-23",
+"s": "",
+"t": "Viaje de estudios",
+"k": "fest"
+},
+{
+"id": "s14",
+"d": "2026-11-24",
+"s": "",
+"t": "Viaje de estudios",
+"k": "fest"
+},
+{
+"id": "s15",
+"d": "2026-11-25",
+"s": "",
+"t": "Viaje de estudios",
+"k": "fest"
+},
+{
+"id": "s16",
+"d": "2026-11-26",
+"s": "",
+"t": "Viaje de estudios",
+"k": "fest"
+},
+{
+"id": "s17",
+"d": "2026-12-07",
+"s": "",
+"t": "Festivo",
+"k": "fest"
+},
+{
+"id": "s18",
+"d": "2026-12-08",
+"s": "",
+"t": "Festivo",
+"k": "fest"
+},
+{
+"id": "s19",
+"d": "2026-12-09",
+"s": "FIS",
+"t": "Examen Electrostática",
+"k": "ex"
+},
+{
+"id": "s20",
+"d": "2026-12-21",
+"s": "MAT",
+"t": "Examen Integrales II",
+"k": "ex"
+},
+{
+"id": "s21",
+"d": "2027-01-11",
+"s": "HE",
+"t": "Parcial",
+"k": "ex"
+},
+{
+"id": "s22",
+"d": "2027-01-14",
+"s": "CAST",
+"t": "Comunicación + Morfología",
+"k": "ex"
+},
+{
+"id": "s23",
+"d": "2027-01-20",
+"s": "",
+"t": "Festivo",
+"k": "fest"
+},
+{
+"id": "s24",
+"d": "2027-02-15",
+"s": "HE",
+"t": "Final",
+"k": "ex"
+},
+{
+"id": "s25",
+"d": "2027-02-18",
+"s": "CAST",
+"t": "Literatura",
+"k": "ex"
+},
+{
+"id": "s26",
+"d": "2027-02-23",
+"s": "MAT",
+"t": "Global de febrero",
+"k": "ex"
+},
+{
+"id": "s27",
+"d": "2027-02-25",
+"s": "",
+"t": "Festivo",
+"k": "fest"
+},
+{
+"id": "s28",
+"d": "2027-03-01",
+"s": "",
+"t": "Festivo",
+"k": "fest"
+},
+{
+"id": "s29",
+"d": "2027-03-18",
+"s": "",
+"t": "Fiesta del colegio",
+"k": "fest"
+},
+{
+"id": "s30",
+"d": "2027-03-22",
+"s": "HE",
+"t": "Parcial",
+"k": "ex"
+},
+{
+"id": "s31",
+"d": "2027-03-23",
+"s": "MAT",
+"t": "Examen Geometría 1",
+"k": "ex"
+},
+{
+"id": "s32",
+"d": "2027-04-13",
+"s": "MAT",
+"t": "Examen Geometría 2",
+"k": "ex"
+},
+{
+"id": "s33",
+"d": "2027-04-15",
+"s": "CAST",
+"t": "Todo el temario",
+"k": "ex"
+},
+{
+"id": "s34",
+"d": "2027-04-21",
+"s": "FIS",
+"t": "Siglo XX",
+"k": "ex"
+},
+{
+"id": "s35",
+"d": "2027-05-04",
+"s": "",
+"t": "Finales",
+"k": "fin"
+},
+{
+"id": "s36",
+"d": "2027-05-05",
+"s": "",
+"t": "Finales",
+"k": "fin"
+},
+{
+"id": "s37",
+"d": "2027-05-06",
+"s": "",
+"t": "Finales",
+"k": "fin"
+},
+{
+"id": "s38",
+"d": "2027-05-10",
+"s": "",
+"t": "Finales",
+"k": "fin"
+},
+{
+"id": "s39",
+"d": "2027-05-11",
+"s": "",
+"t": "Finales",
+"k": "fin"
+},
+{
+"id": "s40",
+"d": "2027-05-12",
+"s": "",
+"t": "Finales",
+"k": "fin"
+},
+{
+"id": "s41",
+"d": "2027-05-13",
+"s": "",
+"t": "Finales",
+"k": "fin"
+},
+{
+"id": "s42",
+"d": "2027-06-24",
+"s": "",
+"t": "Festivo",
+"k": "fest"
+},
+{
+"id": "s43",
+"d": "2026-09-18",
+"s": "CAST",
+"t": "Prueba inicial",
+"k": "ex"
+},
+{
+"id": "s44",
+"d": "2026-10-09",
+"s": "DIB",
+"t": "Examen",
+"k": "ex"
+},
+{
+"id": "s45",
+"d": "2026-10-16",
+"s": "CAT",
+"t": "Examen 1",
+"k": "ex"
+},
+{
+"id": "s46",
+"d": "2026-10-23",
+"s": "HE",
+"t": "Parcial",
+"k": "ex"
+},
+{
+"id": "s47",
+"d": "2026-11-13",
+"s": "HE",
+"t": "Final",
+"k": "ex"
+},
+{
+"id": "s48",
+"d": "2026-11-20",
+"s": "CAT",
+"t": "Examen 2",
+"k": "ex"
+},
+{
+"id": "s49",
+"d": "2026-12-04",
+"s": "MAT",
+"t": "Examen Integrales 1",
+"k": "ex"
+},
+{
+"id": "s50",
+"d": "2027-01-29",
+"s": "MAT",
+"t": "Examen Álgebra 1",
+"k": "ex"
+},
+{
+"id": "s51",
+"d": "2027-02-12",
+"s": "MAT",
+"t": "Examen Álgebra 2",
+"k": "ex"
+},
+{
+"id": "s52",
+"d": "2027-02-26",
+"s": "",
+"t": "Festivo",
+"k": "fest"
+},
+{
+"id": "s53",
+"d": "2027-03-12",
+"s": "",
+"t": "Visita a la UIB",
+"k": "fest"
+},
+{
+"id": "s54",
+"d": "2027-04-23",
+"s": "MAT",
+"t": "Examen Probabilidad",
+"k": "ex"
+},
+{
+"id": "s55",
+"d": "2027-04-30",
+"s": "",
+"t": "Festivo",
+"k": "fest"
+},
+{
+"id": "s56",
+"d": "2027-05-07",
+"s": "",
+"t": "Finales",
+"k": "fin"
+},
+{
+"id": "s57",
+"d": "2027-05-14",
+"s": "",
+"t": "Finales",
+"k": "fin"
+}
+],
+"tasks": [
+{
+"id": "cr-speaking1",
+"d": "2026-11-18",
+"s": "ANG",
+"t": "Speaking Part 1 – Short presentation (audios) · Classroom, 23:59",
+"done": false,
+"k": "task"
+},
+{
+"id": "cr-github",
+"d": "2026-11-20",
+"s": "OPT",
+"t": "Registrarse en GitHub y enlazar con VS Code (PTD2) · Classroom, 23:59",
+"done": false,
+"k": "task"
+}
+]
+}

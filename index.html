@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agenda 2º Bach A</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#141a2e">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Agenda">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* VOICE: clara, práctica, de estudiante organizado; sin adornos.
+   IDEA: una agenda escolar de papel con pestañas de colores por asignatura.
+   PICTURE: la semana actual como hoja de agenda, con la cuenta atrás del próximo examen.
+   COLOUR and TYPE: papel blanco, tinta azul noche, acento coral; cada asignatura su color. Outfit + Inter.
+   LAYOUT: cabecera corta, tira del próximo examen, pestañas, vista activa a ancho completo. */
+:root{color-scheme:light dark;
+--bg:light-dark(#ffffff,#10131c);--paper:light-dark(#f4f6fb,#181c28);--ink:light-dark(#141a2e,#e9ecf5);
+--mute:light-dark(#5b6378,#9aa3b8);--line:light-dark(#e1e5ee,#2a3040);--acc:light-dark(#ff5a3c,#ff7a60);--accInk:#fff}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 Inter,system-ui,sans-serif;overflow-x:clip}
+h1,h2,h3,.big{font-family:Outfit,Inter,sans-serif;margin:0;line-height:1.05;text-wrap:balance}
+.wrap{max-width:1240px;margin:0 auto;padding:clamp(18px,3vw,36px) max(4vw,14px)}
+header{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:12px;margin-bottom:18px}
+h1{font-size:clamp(28px,4vw,42px);font-weight:800}
+.sub{color:var(--mute);font-size:14px}
+.next{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:18px;align-items:center;background:var(--ink);color:var(--bg);border-radius:18px;padding:18px 22px;margin-bottom:18px}
+.next .big{font-size:clamp(40px,7vw,64px);font-weight:800;color:var(--acc)}
+.next .t{font-size:clamp(18px,2.4vw,24px);font-weight:700;font-family:Outfit}
+.next .m{opacity:.75;font-size:14px}
+.next .also{font-size:14px;opacity:.85;text-align:right}
+nav{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+nav button,.btn{font:600 15px Inter;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);border-radius:999px;padding:10px 16px;min-height:44px;cursor:pointer}
+nav button[aria-selected=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn.p{background:var(--acc);border-color:var(--acc);color:var(--accInk)}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.bar{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:12px}
+.bar h2{font-size:22px;flex:1}
+.week{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px}
+.day{background:var(--paper);border-radius:14px;padding:10px;min-height:170px;display:flex;flex-direction:column;gap:6px}
+.day.today{outline:2.5px solid var(--acc)}
+.day.we{opacity:.7}
+.dh{display:flex;justify-content:space-between;align-items:baseline;font-size:13px;color:var(--mute);text-transform:capitalize}
+.dh b{font:800 22px Outfit;color:var(--ink)}
+.it{border-radius:9px;padding:6px 8px;font-size:13px;line-height:1.3;background:var(--bg);border-left:5px solid var(--c,#888)}
+.it.ex{background:var(--c);color:#fff;border-left:0;font-weight:600}
+.it.fest{background:transparent;border:1.5px dashed var(--line);color:var(--mute);border-left:1.5px dashed var(--line)}
+.it.done{text-decoration:line-through;opacity:.55}
+.it label{display:flex;gap:6px;align-items:flex-start;cursor:pointer}
+.it input{margin:2px 0 0;accent-color:var(--c)}
+.tag{display:inline-block;font:700 11px Inter;padding:2px 6px;border-radius:6px;background:var(--c);color:#fff;margin-right:4px;vertical-align:1px}
+.ex .tag{background:rgba(255,255,255,.25)}
+.list{display:flex;flex-direction:column;gap:8px}
+.row{display:grid;grid-template-columns:92px minmax(0,1fr) auto;gap:12px;align-items:center;background:var(--paper);border-radius:14px;padding:12px 14px;border-left:6px solid var(--c,#888)}
+.row .d{font:700 15px Outfit;white-space:nowrap}.row .d small{display:block;font:500 12px Inter;color:var(--mute)}
+.row .ttl{font-weight:600}.row .ttl small{display:block;font-weight:400;color:var(--mute);font-size:13px}
+.row.past{opacity:.5}
+.cd{font:700 14px Outfit;white-space:nowrap;padding:6px 10px;border-radius:999px;background:var(--bg)}
+.cd.hot{background:var(--acc);color:var(--accInk)}
+.x{border:0;background:none;color:var(--mute);font-size:20px;width:44px;height:44px;cursor:pointer;border-radius:10px}
+.x:hover{background:var(--bg);color:var(--acc)}
+form.add{display:flex;flex-wrap:wrap;gap:8px;background:var(--paper);padding:12px;border-radius:14px;margin-bottom:14px}
+form.add input,form.add select{font:16px Inter;padding:9px 12px;border:1.5px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);min-height:44px}
+form.add input[type=text]{flex:1 1 220px}
+.month{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}
+.month .h{font-size:12px;color:var(--mute);text-align:center;padding:4px 0}
+.mc{background:var(--paper);border-radius:10px;min-height:84px;padding:6px;font-size:12px;display:flex;flex-direction:column;gap:3px}
+.mc.o{background:transparent}.mc.today{outline:2.5px solid var(--acc)}
+.mc b{font:700 14px Outfit}
+.mc .e{border-radius:5px;padding:2px 4px;background:var(--c);color:#fff;font-size:11px;line-height:1.25;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mc .e.f{background:transparent;color:var(--mute);border:1px dashed var(--line)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:16px;font-size:13px;color:var(--mute)}
+.legend span::before{content:"";display:inline-block;width:11px;height:11px;border-radius:3px;background:var(--c);margin-right:6px;vertical-align:-1px}
+.empty{color:var(--mute);padding:20px;text-align:center;background:var(--paper);border-radius:14px}
+.note{font-size:13px;color:var(--mute);margin-top:18px}
+.sync{font-size:13px;color:var(--mute)}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chips button{min-height:36px;padding:6px 12px;font-size:13px}
+@media(max-width:860px){.week{grid-template-columns:minmax(0,1fr)}.day{min-height:0}.day.we.empty-day{display:none}
+.next{grid-template-columns:auto minmax(0,1fr)}.next .also{grid-column:1/-1;text-align:left}}
+@media(max-width:600px){.row{grid-template-columns:70px minmax(0,1fr) auto}.row .cd{display:none}.mc{min-height:56px}.mc .e{font-size:0;height:6px;padding:0}.month{gap:3px}}
+@media(prefers-reduced-motion:no-preference){.it,.row{transition:opacity .2s}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div><h1>Agenda 2º Bach A</h1><div class="sub" id="hoy"></div></div>
+  <div class="sync" id="sync">Calendario de tutoría · curso 2026–2027</div>
+</header>
+<section class="next" id="next"></section>
+<nav role="tablist" id="tabs">
+  <button data-v="semana">Semana</button>
+  <button data-v="examenes">Exámenes</button>
+  <button data-v="tareas">Tareas</button>
+  <button data-v="mes">Calendario</button>
+</nav>
+<main id="view"></main>
+<div class="legend" id="legend"></div>
+<div class="bar" style="margin-top:22px"><button class="btn" id="exp">Exportar copia</button><label class="btn" style="display:inline-flex;align-items:center">Importar copia<input type="file" id="imp" accept=".json,application/json" hidden></label><span class="sync" id="msg"></span></div>
+<p class="note">Los repasos se proponen solos 4, 2 y 1 día antes de cada examen. Márcalos al hacerlos. Todo se guarda en este dispositivo. Para pasar tus datos a otro (del PC al móvil, por ejemplo), usa Exportar copia aquí e Importar copia allí.</p>
+</div>
+<script type="application/json" id="state">{"v":1,"updated":"2026-11-16","exams":[{"id":"s1","d":"2026-09-30","s":"FIS","t":"Examen 1º","k":"ex"},{"id":"s2","d":"2026-10-06","s":"MAT","t":"Examen Análisis 1","k":"ex"},{"id":"s3","d":"2026-10-12","s":"","t":"Festivo","k":"fest"},{"id":"s4","d":"2026-10-21","s":"HF","t":"Comentario Aristóteles (30%)","k":"ex"},{"id":"s5","d":"2026-10-22","s":"CAST","t":"Comunicación + Morfología","k":"ex"},{"id":"s6","d":"2026-10-27","s":"FIS","t":"Examen","k":"ex"},{"id":"s7","d":"2026-10-28","s":"HF","t":"Examen B1/B2 Platón/Aristóteles","k":"ex"},{"id":"s8","d":"2026-11-03","s":"MAT","t":"Examen Análisis II","k":"ex"},{"id":"s9","d":"2026-11-04","s":"FIS","t":"Examen","k":"ex"},{"id":"s10","d":"2026-11-11","s":"HF","t":"Examen B3 Platón/Aristóteles","k":"ex"},{"id":"s11","d":"2026-11-16","s":"ANG","t":"Examen","k":"ex"},{"id":"s12","d":"2026-11-17","s":"CAST","t":"Literatura","k":"ex"},{"id":"s13","d":"2026-11-23","s":"","t":"Viaje de estudios","k":"fest"},{"id":"s14","d":"2026-11-24","s":"","t":"Viaje de estudios","k":"fest"},{"id":"s15","d":"2026-11-25","s":"","t":"Viaje de estudios","k":"fest"},{"id":"s16","d":"2026-11-26","s":"","t":"Viaje de estudios","k":"fest"},{"id":"s17","d":"2026-12-07","s":"","t":"Festivo","k":"fest"},{"id":"s18","d":"2026-12-08","s":"","t":"Festivo","k":"fest"},{"id":"s19","d":"2026-12-09","s":"FIS","t":"Examen Electrostática","k":"ex"},{"id":"s20","d":"2026-12-21","s":"MAT","t":"Examen Integrales II","k":"ex"},{"id":"s21","d":"2027-01-11","s":"HE","t":"Parcial","k":"ex"},{"id":"s22","d":"2027-01-14","s":"CAST","t":"Comunicación + Morfología","k":"ex"},{"id":"s23","d":"2027-01-20","s":"","t":"Festivo","k":"fest"},{"id":"s24","d":"2027-02-15","s":"HE","t":"Final","k":"ex"},{"id":"s25","d":"2027-02-18","s":"CAST","t":"Literatura","k":"ex"},{"id":"s26","d":"2027-02-23","s":"MAT","t":"Global de febrero","k":"ex"},{"id":"s27","d":"2027-02-25","s":"","t":"Festivo","k":"fest"},{"id":"s28","d":"2027-03-01","s":"","t":"Festivo","k":"fest"},{"id":"s29","d":"2027-03-18","s":"","t":"Fiesta del colegio","k":"fest"},{"id":"s30","d":"2027-03-22","s":"HE","t":"Parcial","k":"ex"},{"id":"s31","d":"2027-03-23","s":"MAT","t":"Examen Geometría 1","k":"ex"},{"id":"s32","d":"2027-04-13","s":"MAT","t":"Examen Geometría 2","k":"ex"},{"id":"s33","d":"2027-04-15","s":"CAST","t":"Todo el temario","k":"ex"},{"id":"s34","d":"2027-04-21","s":"FIS","t":"Siglo XX","k":"ex"},{"id":"s35","d":"2027-05-04","s":"","t":"Finales","k":"fin"},{"id":"s36","d":"2027-05-05","s":"","t":"Finales","k":"fin"},{"id":"s37","d":"2027-05-06","s":"","t":"Finales","k":"fin"},{"id":"s38","d":"2027-05-10","s":"","t":"Finales","k":"fin"},{"id":"s39","d":"2027-05-11","s":"","t":"Finales","k":"fin"},{"id":"s40","d":"2027-05-12","s":"","t":"Finales","k":"fin"},{"id":"s41","d":"2027-05-13","s":"","t":"Finales","k":"fin"},{"id":"s42","d":"2027-06-24","s":"","t":"Festivo","k":"fest"},{"id":"s43","d":"2026-09-18","s":"CAST","t":"Prueba inicial","k":"ex"},{"id":"s44","d":"2026-10-09","s":"DIB","t":"Examen","k":"ex"},{"id":"s45","d":"2026-10-16","s":"CAT","t":"Examen 1","k":"ex"},{"id":"s46","d":"2026-10-23","s":"HE","t":"Parcial","k":"ex"},{"id":"s47","d":"2026-11-13","s":"HE","t":"Final","k":"ex"},{"id":"s48","d":"2026-11-20","s":"CAT","t":"Examen 2","k":"ex"},{"id":"s49","d":"2026-12-04","s":"MAT","t":"Examen Integrales 1","k":"ex"},{"id":"s50","d":"2027-01-29","s":"MAT","t":"Examen Álgebra 1","k":"ex"},{"id":"s51","d":"2027-02-12","s":"MAT","t":"Examen Álgebra 2","k":"ex"},{"id":"s52","d":"2027-02-26","s":"","t":"Festivo","k":"fest"},{"id":"s53","d":"2027-03-12","s":"","t":"Visita a la UIB","k":"fest"},{"id":"s54","d":"2027-04-23","s":"MAT","t":"Examen Probabilidad","k":"ex"},{"id":"s55","d":"2027-04-30","s":"","t":"Festivo","k":"fest"},{"id":"s56","d":"2027-05-07","s":"","t":"Finales","k":"fin"},{"id":"s57","d":"2027-05-14","s":"","t":"Finales","k":"fin"}],"tasks":[{"id":"cr-speaking1","d":"2026-11-18","s":"ANG","t":"Speaking Part 1 – Short presentation (audios) · Classroom, 23:59","done":false,"k":"task"},{"id":"cr-github","d":"2026-11-20","s":"OPT","t":"Registrarse en GitHub y enlazar con VS Code (PTD2) · Classroom, 23:59","done":false,"k":"task"}],"rep":{},"notas":{},"saved":0}</script>
+<script>
+{
+const SUB={CAST:['Castellano','#e0533d'],CAT:['Catalán','#d9a400'],ANG:['Inglés','#2f6fe4'],HF:['H. Filosofía','#8a4fd8'],HE:['H. España','#b0683a'],MAT:['Matemáticas','#1c9a6c'],FIS:['Física','#0a8fb5'],DIB:['Dibujo Técnico','#5d6b82'],OPT:['Optativas','#d6458f'],REL:['Religión','#7c8c2e'],'':['General','#6b7385']};
+const $=s=>document.querySelector(s);
+let S=JSON.parse($('#state').textContent);
+let LS=null;try{LS=localStorage;const l=LS.getItem('agenda2a');if(l)S=JSON.parse(l)}catch(e){LS=null}
+let view='semana',wk=0,mo=0;
+const pad=n=>String(n).padStart(2,'0');
+const iso=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+const pd=s=>{const[a,b,c]=s.split('-').map(Number);return new Date(a,b-1,c)};
+const today=new Date();today.setHours(0,0,0,0);const T=iso(today);
+const add=(d,n)=>{const x=new Date(d);x.setDate(x.getDate()+n);return x};
+const days=s=>Math.round((pd(s)-today)/864e5);
+const DN=['lun','mar','mié','jue','vie','sáb','dom'];
+const MN=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+const fmt=s=>{const d=pd(s);return d.getDate()+' '+MN[d.getMonth()].slice(0,3)};
+const dow=s=>DN[(pd(s).getDay()+6)%7];
+const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const col=s=>(SUB[s]||SUB[''])[1];
+const left=n=>n===0?'Hoy':n===1?'Mañana':n<0?'Hace '+(-n)+' d':'En '+n+' días';
+const exams=()=>S.exams.filter(e=>e.k==='ex').sort((a,b)=>a.d<b.d?-1:1);
+function reps(){const out=[];for(const e of exams()){const n=days(e.d);if(n<1||n>21)continue;for(const k of [4,2,1]){let d=add(pd(e.d),-k);while(d.getDay()===0||d.getDay()===6)d=add(d,-1);if(d<today&&!S.rep[e.id+k])continue;out.push({id:e.id+k,d:iso(d),s:e.s,t:'Repasar '+e.t,k:'rep'})}}return out}
+function itemsOn(d){return[...S.exams.filter(e=>e.d===d),...reps().filter(r=>r.d===d),...S.tasks.filter(t=>t.d===d)]}
+function save(){S.saved=Date.now();try{LS&&LS.setItem('agenda2a',JSON.stringify(S))}catch(e){}}
+function itemHTML(x){const c=col(x.s),tg=x.s?`<span class="tag">${esc(x.s)}</span>`:'';
+  if(x.k==='ex')return`<div class="it ex" style="--c:${c}">${tg}${esc(x.t)}</div>`;
+  if(x.k==='fest'||x.k==='fin')return`<div class="it fest">${esc(x.t)}</div>`;
+  const done=x.k==='rep'?!!S.rep[x.id]:x.done;
+  return`<div class="it${done?' done':''}" style="--c:${c}"><label><input type="checkbox" data-chk="${x.k}:${x.id}"${done?' checked':''}><span>${tg}${esc(x.t)}</span></label></div>`}
+function renderNext(){const up=exams().filter(e=>days(e.d)>=0);const el=$('#next');
+  if(!up.length){el.innerHTML='<div class="big">✓</div><div><div class="t">No quedan exámenes</div></div>';return}
+  const e=up[0],n=days(e.d),more=up.slice(1,3).map(x=>`${x.s} ${esc(x.t)} · ${left(days(x.d)).toLowerCase()}`).join('<br>');
+  const pend=S.tasks.filter(t=>!t.done&&t.d<=iso(add(today,7))).length;
+  el.innerHTML=`<div class="big">${n===0?'HOY':n===1?'1 día':n+' días'}</div><div><div class="m">Próximo examen · ${dow(e.d)} ${fmt(e.d)}</div><div class="t"><span class="tag" style="--c:${col(e.s)}">${e.s}</span>${esc(e.t)}</div><div class="m">${(SUB[e.s]||SUB[''])[0]} · ${pend} tarea${pend===1?'':'s'} para esta semana</div></div><div class="also">${more?'Después:<br>'+more:''}</div>`}
+function vSemana(){const mon=add(today,-((today.getDay()+6)%7)+wk*7);const sun=add(mon,6);
+  let h=`<div class="bar"><h2>Semana del ${fmt(iso(mon))} al ${fmt(iso(sun))}</h2><button class="btn" data-wk="-1" aria-label="Semana anterior">←</button><button class="btn" data-wk="0">Hoy</button><button class="btn" data-wk="1" aria-label="Semana siguiente">→</button></div><div class="week">`;
+  for(let i=0;i<7;i++){const d=iso(add(mon,i)),its=itemsOn(d);
+    h+=`<div class="day${d===T?' today':''}${i>4?' we':''}${!its.length?' empty-day':''}"><div class="dh"><span>${DN[i]}</span><b>${add(mon,i).getDate()}</b></div>${its.map(itemHTML).join('')}</div>`}
+  return h+'</div>'}
+function subOpts(sel){return Object.keys(SUB).filter(k=>k).map(k=>`<option value="${k}"${k===sel?' selected':''}>${SUB[k][0]}</option>`).join('')}
+let exF='prox';
+function vExamenes(){const all=exams(),list=exF==='prox'?all.filter(e=>days(e.d)>=0):exF==='pas'?all.filter(e=>days(e.d)<0).reverse():all;
+  let h=`<form class="add" id="fEx"><input type="date" name="d" required value="${T}" aria-label="Fecha"><select name="s" aria-label="Asignatura">${subOpts('MAT')}</select><input type="text" name="t" placeholder="Nuevo examen (ej. Tema 4)" required aria-label="Examen"><button class="btn p">Añadir examen</button></form>
+  <div class="bar"><h2>${list.length} exámenes</h2><div class="chips">${[['prox','Próximos'],['pas','Pasados'],['all','Todos']].map(([k,l])=>`<button class="btn" data-exf="${k}" aria-pressed="${exF===k}" style="${exF===k?'background:var(--ink);color:var(--bg)':''}">${l}</button>`).join('')}</div></div><div class="list">`;
+  if(!list.length)h+='<div class="empty">Nada por aquí.</div>';
+  for(const e of list){const n=days(e.d),nota=S.notas[e.id]||'';
+    h+=`<div class="row${n<0?' past':''}" style="--c:${col(e.s)}"><div class="d">${fmt(e.d)}<small>${dow(e.d)}</small></div><div class="ttl"><span class="tag" style="--c:${col(e.s)}">${e.s}</span>${esc(e.t)}<small>${(SUB[e.s]||SUB[''])[0]}${n<0?` · Nota: <input data-nota="${e.id}" value="${esc(nota)}" inputmode="decimal" placeholder="—" style="width:4.5em;font:inherit;border:1px solid var(--line);border-radius:6px;padding:2px 6px;background:var(--bg);color:var(--ink)" aria-label="Nota">`:''}</small></div><div style="display:flex;align-items:center;gap:4px"><span class="cd${n>=0&&n<=3?' hot':''}">${left(n)}</span>${e.id[0]==='u'?`<button class="x" data-delex="${e.id}" aria-label="Borrar examen">×</button>`:''}</div></div>`}
+  return h+'</div>'}
+let tF='pend';
+function vTareas(){let list=S.tasks.slice().sort((a,b)=>a.d<b.d?-1:1);if(tF==='pend')list=list.filter(t=>!t.done);if(tF==='hech')list=list.filter(t=>t.done);
+  let h=`<form class="add" id="fT"><input type="text" name="t" placeholder="Nueva tarea o deber" required aria-label="Tarea"><select name="s" aria-label="Asignatura">${subOpts('CAST')}</select><input type="date" name="d" required value="${iso(add(today,1))}" aria-label="Fecha de entrega"><button class="btn p">Añadir</button></form>
+  <div class="bar"><h2>Tareas</h2><div class="chips">${[['pend','Pendientes'],['hech','Hechas'],['all','Todas']].map(([k,l])=>`<button class="btn" data-tf="${k}" aria-pressed="${tF===k}" style="${tF===k?'background:var(--ink);color:var(--bg)':''}">${l}</button>`).join('')}</div></div><div class="list">`;
+  if(!list.length)h+=`<div class="empty">${tF==='pend'?'No tienes tareas pendientes. Añade los deberes arriba y aparecerán también en la semana.':'Nada por aquí.'}</div>`;
+  for(const t of list){const n=days(t.d);h+=`<div class="row${t.done?' past':''}" style="--c:${col(t.s)}"><div class="d">${fmt(t.d)}<small>${dow(t.d)}</small></div><label class="ttl" style="display:flex;gap:10px;align-items:center;cursor:pointer"><input type="checkbox" data-chk="task:${t.id}"${t.done?' checked':''} style="width:20px;height:20px;accent-color:${col(t.s)}"><span><span class="tag" style="--c:${col(t.s)}">${t.s}</span>${esc(t.t)}</span></label><div style="display:flex;align-items:center;gap:4px"><span class="cd${!t.done&&n<=1?' hot':''}">${n<0&&!t.done?'Atrasada':left(n)}</span><button class="x" data-delt="${t.id}" aria-label="Borrar tarea">×</button></div></div>`}
+  return h+'</div>'}
+function vMes(){const b=new Date(today.getFullYear(),today.getMonth()+mo,1),start=add(b,-((b.getDay()+6)%7));
+  let h=`<div class="bar"><h2 style="text-transform:capitalize">${MN[b.getMonth()]} ${b.getFullYear()}</h2><button class="btn" data-mo="-1" aria-label="Mes anterior">←</button><button class="btn" data-mo="0">Hoy</button><button class="btn" data-mo="1" aria-label="Mes siguiente">→</button></div><div class="month">${DN.map(d=>`<div class="h">${d}</div>`).join('')}`;
+  for(let i=0;i<42;i++){const dd=add(start,i);if(i>=35&&dd.getMonth()!==b.getMonth())break;const d=iso(dd),its=itemsOn(d).filter(x=>x.k!=='rep');
+    h+=`<div class="mc${dd.getMonth()!==b.getMonth()?' o':''}${d===T?' today':''}"><b>${dd.getDate()}</b>${its.map(x=>`<div class="e${x.k==='ex'?'':' f'}" style="--c:${col(x.s)}" title="${esc((x.s?x.s+' ':'')+x.t)}">${x.k==='task'?'• ':''}${esc((x.s?x.s+' ':'')+x.t)}</div>`).join('')}</div>`}
+  return h+'</div>'}
+function render(){$('#hoy').textContent='Hoy es '+DN[(today.getDay()+6)%7]+' '+today.getDate()+' de '+MN[today.getMonth()]+' de '+today.getFullYear();
+  renderNext();document.querySelectorAll('#tabs button').forEach(b=>b.setAttribute('aria-selected',b.dataset.v===view));
+  $('#view').innerHTML={semana:vSemana,examenes:vExamenes,tareas:vTareas,mes:vMes}[view]();
+  $('#legend').innerHTML=Object.entries(SUB).filter(([k])=>k).map(([k,[n,c]])=>`<span style="--c:${c}">${k} · ${n}</span>`).join('')}
+function go(v){view=v;if(location.hash!=='#'+v)history.replaceState(null,'','#'+v);render()}
+document.addEventListener('click',e=>{const t=e.target.closest('button');if(!t)return;
+  if(t.dataset.v)go(t.dataset.v);
+  else if(t.dataset.wk!=null){wk=t.dataset.wk==='0'?0:wk+Number(t.dataset.wk);render()}
+  else if(t.dataset.mo!=null){mo=t.dataset.mo==='0'?0:mo+Number(t.dataset.mo);render()}
+  else if(t.dataset.exf){exF=t.dataset.exf;render()}
+  else if(t.dataset.tf){tF=t.dataset.tf;render()}
+  else if(t.dataset.delt){S.tasks=S.tasks.filter(x=>x.id!==t.dataset.delt);save();render()}
+  else if(t.dataset.delex){S.exams=S.exams.filter(x=>x.id!==t.dataset.delex);save();render()}});
+document.addEventListener('change',e=>{const c=e.target.dataset.chk,n=e.target.dataset.nota;
+  if(c){const[k,id]=c.split(':');if(k==='rep'){if(e.target.checked)S.rep[id]=1;else delete S.rep[id]}else{const t=S.tasks.find(x=>x.id===id);if(t)t.done=e.target.checked}save();render()}
+  else if(n!=null){S.notas[n]=e.target.value.trim();save()}});
+document.addEventListener('submit',e=>{e.preventDefault();const f=new FormData(e.target),o={d:f.get('d'),s:f.get('s'),t:String(f.get('t')).trim()};if(!o.t||!o.d)return;
+  if(e.target.id==='fEx')S.exams.push({...o,id:'u'+Date.now(),k:'ex'});else S.tasks.push({...o,id:'t'+Date.now(),done:false,k:'task'});save();render()});
+const h=location.hash.slice(1);if(['semana','examenes','tareas','mes'].includes(h))view=h;
+window.addEventListener('hashchange',()=>{const v=location.hash.slice(1);if(['semana','examenes','tareas','mes'].includes(v)&&v!==view){view=v;render()}});
+render();
+$('#exp').onclick=()=>{const b=new Blob([JSON.stringify(S,null,1)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='agenda-'+T+'.json';a.click();$('#msg').textContent='Copia descargada'};
+$('#imp').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const o=JSON.parse(await f.text());if(!Array.isArray(o.exams)||!Array.isArray(o.tasks))throw 0;S=o;save();render();$('#msg').textContent='Copia importada'}catch(x){$('#msg').textContent='Ese archivo no es una copia de la agenda'}e.target.value=''};
+async function sync(){try{const r=await fetch('data.json?t='+Date.now(),{cache:'no-store'});if(!r.ok)return;const d=await r.json();if(!Array.isArray(d.exams))return;
+  S.exams=[...d.exams,...S.exams.filter(e=>String(e.id)[0]==='u')];
+  for(const t of (d.tasks||[])){const o=S.tasks.find(x=>x.id===t.id);if(o){o.d=t.d;o.t=t.t;o.s=t.s}else S.tasks.push({...t,done:false,k:'task'})}
+  save();render();$('#sync').textContent='Actualizado con Classroom el '+fmt(d.updated||T)}catch(e){}}
+sync();
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
+}
+</script>
+</body>
+</html>
