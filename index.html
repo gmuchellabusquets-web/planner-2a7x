@@ -84,6 +84,7 @@ form.add input[type=text]{flex:1 1 220px}
 @media(max-width:860px){.week{grid-template-columns:minmax(0,1fr)}.day{min-height:0}.day.we.empty-day{display:none}
 .next{grid-template-columns:auto minmax(0,1fr)}.next .also{grid-column:1/-1;text-align:left}}
 @media(max-width:600px){.row{grid-template-columns:70px minmax(0,1fr) auto}.row .cd{display:none}.mc{min-height:56px}.mc .e{font-size:0;height:6px;padding:0}.month{gap:3px}}
+.hor{width:100%;border-collapse:separate;border-spacing:4px;min-width:600px;table-layout:fixed}.hor th{font:600 13px Inter;color:var(--mute);text-align:left;padding:4px 8px}.hor th:first-child{width:58px}.hor th.today{color:var(--acc)}.hor td.t{font:700 15px Outfit;white-space:nowrap;color:var(--mute);padding:9px 4px}.hor td.c{background:var(--c);color:#fff;border-radius:10px;padding:10px;font:700 14px Outfit;line-height:1.2}.hor td.today{box-shadow:inset 0 0 0 3px var(--acc)}.hor td.e{background:var(--paper);border-radius:10px}.hor tr.now td.t{color:var(--acc)}.ahora{display:flex;flex-wrap:wrap;gap:8px 18px;background:var(--paper);border-radius:14px;padding:12px 16px;margin-bottom:12px;font-size:15px}.ahora b{font-family:Outfit}
 @media(prefers-reduced-motion:no-preference){.it,.row{transition:opacity .2s}}
 </style>
 </head>
@@ -99,6 +100,7 @@ form.add input[type=text]{flex:1 1 220px}
   <button data-v="examenes">Exámenes</button>
   <button data-v="tareas">Tareas</button>
   <button data-v="mes">Calendario</button>
+  <button data-v="horario">Horario</button>
 </nav>
 <main id="view"></main>
 <div class="legend" id="legend"></div>
@@ -166,9 +168,22 @@ function vMes(){const b=new Date(today.getFullYear(),today.getMonth()+mo,1),star
   for(let i=0;i<42;i++){const dd=add(start,i);if(i>=35&&dd.getMonth()!==b.getMonth())break;const d=iso(dd),its=itemsOn(d).filter(x=>x.k!=='rep');
     h+=`<div class="mc${dd.getMonth()!==b.getMonth()?' o':''}${d===T?' today':''}"><b>${dd.getDate()}</b>${its.map(x=>`<div class="e${x.k==='ex'?'':' f'}" style="--c:${col(x.s)}" title="${esc((x.s?x.s+' ':'')+x.t)}">${x.k==='task'?'• ':''}${esc((x.s?x.s+' ':'')+x.t)}</div>`).join('')}</div>`}
   return h+'</div>'}
+const HOR=['8:00','8:55','9:50','11:05','12:00','13:10','14:05'];
+const P=(s,n)=>[s,n],HF_=P('HF','H. Filosofía'),CA_=P('CAST','Castellano'),MA_=P('MAT','Matemáticas II'),RE_=P('REL','Religión'),AN_=P('ANG','Inglés'),TU_=P('','Tutoría'),FI_=P('FIS','Física'),DI_=P('DIB','Dibujo Técnico'),HE_=P('HE','H. España'),OP_=P('OPT','PTD2 (optativa)'),CT_=P('CAT','Catalán'),AL_=P('ANG','Advanced Language Skills');
+const HC=[[HF_,CA_,MA_,RE_,MA_],[AN_,TU_,FI_,DI_,AN_],[HE_,MA_,OP_,AN_,FI_],[MA_,OP_,HF_,HE_,CT_],[FI_,DI_,CT_,OP_,DI_],[OP_,FI_,DI_,CT_,HE_],[AL_,HF_,null,CA_,CA_]];
+const mins=s=>{const[h,m]=s.split(':').map(Number);return h*60+m};
+function vHorario(){const wd=(new Date().getDay()+6)%7,nowM=new Date().getHours()*60+new Date().getMinutes();let cur=-1;HOR.forEach((h,i)=>{if(nowM>=mins(h))cur=i});
+  let info='';
+  if(wd<5){const nx=HOR.findIndex(h=>mins(h)>nowM),c=cur>=0&&nowM<mins(HOR[cur])+55?HC[cur][wd]:null,n=nx>=0?HC[nx][wd]:null;
+    info=`<div class="ahora"><span>Hoy: <b>${['lunes','martes','miércoles','jueves','viernes'][wd]}</b></span>${c?`<span>Ahora: <b>${esc(c[1])}</b></span>`:''}${n?`<span>Siguiente (${HOR[nx]}): <b>${esc(n[1])}</b></span>`:'<span>No te quedan clases hoy</span>'}</div>`}
+  else info='<div class="ahora"><span>Hoy no hay clase. El lunes empiezas a las 8:00 con <b>H. Filosofía</b>.</span></div>';
+  const DL=['Lunes','Martes','Miércoles','Jueves','Viernes'];
+  let h=`<div class="bar"><h2>Horario de clases</h2><span class="sync">2º Bach A</span></div>${info}<div class="scroll"><table class="hor"><thead><tr><th>Hora</th>${DL.map((d,i)=>`<th class="${i===wd?'today':''}">${d}</th>`).join('')}</tr></thead><tbody>`;
+  HC.forEach((row,r)=>{h+=`<tr class="${wd<5&&r===cur?'now':''}"><td class="t">${HOR[r]}</td>`+row.map((c,i)=>c?`<td class="c${i===wd?' today':''}" style="--c:${col(c[0])}">${esc(c[1])}</td>`:`<td class="e${i===wd?' today':''}"></td>`).join('')+'</tr>'});
+  return h+'</tbody></table></div>'}
 function render(){$('#hoy').textContent='Hoy es '+DN[(today.getDay()+6)%7]+' '+today.getDate()+' de '+MN[today.getMonth()]+' de '+today.getFullYear();
   renderNext();document.querySelectorAll('#tabs button').forEach(b=>b.setAttribute('aria-selected',b.dataset.v===view));
-  $('#view').innerHTML={semana:vSemana,examenes:vExamenes,tareas:vTareas,mes:vMes}[view]();
+  $('#view').innerHTML={semana:vSemana,examenes:vExamenes,tareas:vTareas,mes:vMes,horario:vHorario}[view]();
   $('#legend').innerHTML=Object.entries(SUB).filter(([k])=>k).map(([k,[n,c]])=>`<span style="--c:${c}">${k} · ${n}</span>`).join('')}
 function go(v){view=v;if(location.hash!=='#'+v)history.replaceState(null,'','#'+v);render()}
 document.addEventListener('click',e=>{const t=e.target.closest('button');if(!t)return;
@@ -184,8 +199,8 @@ document.addEventListener('change',e=>{const c=e.target.dataset.chk,n=e.target.d
   else if(n!=null){S.notas[n]=e.target.value.trim();save()}});
 document.addEventListener('submit',e=>{e.preventDefault();const f=new FormData(e.target),o={d:f.get('d'),s:f.get('s'),t:String(f.get('t')).trim()};if(!o.t||!o.d)return;
   if(e.target.id==='fEx')S.exams.push({...o,id:'u'+Date.now(),k:'ex'});else S.tasks.push({...o,id:'t'+Date.now(),done:false,k:'task'});save();render()});
-const h=location.hash.slice(1);if(['semana','examenes','tareas','mes'].includes(h))view=h;
-window.addEventListener('hashchange',()=>{const v=location.hash.slice(1);if(['semana','examenes','tareas','mes'].includes(v)&&v!==view){view=v;render()}});
+const h=location.hash.slice(1);if(['semana','examenes','tareas','mes','horario'].includes(h))view=h;
+window.addEventListener('hashchange',()=>{const v=location.hash.slice(1);if(['semana','examenes','tareas','mes','horario'].includes(v)&&v!==view){view=v;render()}});
 render();
 $('#exp').onclick=()=>{const b=new Blob([JSON.stringify(S,null,1)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='agenda-'+T+'.json';a.click();$('#msg').textContent='Copia descargada'};
 $('#imp').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const o=JSON.parse(await f.text());if(!Array.isArray(o.exams)||!Array.isArray(o.tasks))throw 0;S=o;save();render();$('#msg').textContent='Copia importada'}catch(x){$('#msg').textContent='Ese archivo no es una copia de la agenda'}e.target.value=''};
